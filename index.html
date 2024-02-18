@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hulk Smash</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+     position: relative;
+    }
+
+    .background-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -99;
+        height: 100%;
+        width: 100%;
+    }
+
+    .background-img img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+
+    }
+
+    .main-title {
+      margin-bottom: 20px;
+      font-size: 35px;
+      font-family: 'Brush Script MT', cursive;
+      color: white;
+    }
+
+    .container {
+        background-color: rgb(175, 113, 182);
+        color: white;
+        padding: 10px;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 500px; /* Set the width to your desired percentage or value */
+        height: 500px;
+        max-width: 1600px; /* Set a maximum width if needed */
+        margin: auto; /* Center the container horizontally */
+        font-family: Georgia, serif;
+    }
+    .container * {
+        color: white; /* Set the color of all child elements inside .container to white */
+    }
+  </style>
+  
+</head>
+<body>
+    <div class="background-img">
+        <img src="/HUCK.jpg"/>
+    </div>
+  <div class="main-title">
+    <h1>Hulk Smash</h1>
+  </div>
+  <div class="container">
+    <h2>Leaderboard</h2>
+    <!-- Your content goes here -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <div id= "sample1"></div>
+    <div id="sample2"></div>
+    <div id="sample3"></div>
+    <div id="sample4"></div>
+    <div id="sample5"></div>
+    <div id= "sample6"></div>
+    <div id="sample7"></div>
+    <div id="sample8"></div>
+    <div id="sample9"></div>
+    <div id="sample10"></div>
+
+    <script>
+        
+       
+        var socket = io();
+        socket.on('data', function(data) {
+            
+            console.log(data.id);
+            console.log()
+            for(let i = 0; i<10; i++){
+                if(i >= data.id.length) break;
+                let id = data.id[i];
+                let score = data.score[i];
+                let line = id.concat(":    ");
+                line = line.concat(score.toString());
+                let htmlid = 'sample';
+                htmlid = htmlid.concat((i+1).toString());
+                document.getElementById(htmlid).innerHTML = line;
+            }
+
+        });
+    </script>
+  </div>
+</body>
+</html>
